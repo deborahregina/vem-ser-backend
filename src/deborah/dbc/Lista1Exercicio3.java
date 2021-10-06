@@ -1,7 +1,7 @@
 package deborah.dbc;
 import java.util.Scanner;
 
-public class Exercicio3 {
+public class Lista1Exercicio3 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite o valor total consumido: ");

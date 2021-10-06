@@ -1,7 +1,7 @@
 package deborah.dbc;
 import java.util.Scanner;
 
-public class Exercicio6 {
+public class Lista1Exercicio6 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite a palavra que deseja traduzir: ");

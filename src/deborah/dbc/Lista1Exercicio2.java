@@ -1,7 +1,7 @@
 package deborah.dbc;
 import java.util.*;
 
-public class Exercicio2 {
+public class Lista1Exercicio2 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite a nota da primeira prova: ");

@@ -1,7 +1,7 @@
 package deborah.dbc;
 import java.util.Scanner;
 
-public class Exercicio4 {
+public class Lista1Exercicio4 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1- Rio Grande do Sul \n"+"2- Minas Gerais \n"+"3- Pernambuco \n" );

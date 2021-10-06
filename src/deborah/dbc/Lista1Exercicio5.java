@@ -1,7 +1,7 @@
 package deborah.dbc;
 import java.util.Scanner;
 
-public class Exercicio5 {
+public class Lista1Exercicio5 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Digite o valor pago por hora trabalhada: ");

@@ -60,7 +60,7 @@ public class Exercicio4 {
                 }
                 break;
             default:
-                System.out.println("Digite uma opção válida: ");
+                System.out.println("Digite uma opção válida.");
                 break;
 
         }

@@ -10,9 +10,11 @@ public class Exercicio5 {
         System.out.print("Digite o número de horas inteiras normais trabalhadas: ");
         int numeroDeHoras = scanner.nextInt();
         scanner.nextLine();
-        System.out.print("Digite o número horas inteiras extras trabalhadas: ");
-        float numeroHorasExtras = scanner.nextFloat();
-        double salarioMensal = valorDaHora*numeroDeHoras + valorDaHora*numeroHorasExtras*0.5;
+        System.out.print("Digite o número horas inteiras extras trabalhadas (50%): ");
+        float numeroHorasExtras50 = scanner.nextFloat();
+        System.out.println("Digite o número de horas inteiras extras trabalhadas (100%): ");
+        float numeroHorasExtras100 = scanner.nextFloat();
+        double salarioMensal = valorDaHora*numeroDeHoras+ numeroHorasExtras100*valorDaHora*2 + numeroHorasExtras50*valorDaHora*1.5;
         System.out.println(String.format("O Salário do funcionário é R$%.2f: ",salarioMensal));
     }
 }

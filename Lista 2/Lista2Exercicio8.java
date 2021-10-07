@@ -32,6 +32,7 @@ public class Lista2Exercicio8 {
             }
         }
         System.out.println("----- Resultado da turma ----------");
+        System.out.println("A matricula do aluno que teve maior nota foi: "+informacoesAlunos[matriculaDaMaiorNota][0]);
         System.out.println("A maior nota final é :" +maiorMedia);
         System.out.println("A média das notas finais é :"+somaNotasFinais/5);
 

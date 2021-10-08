@@ -4,14 +4,16 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
         Cliente cliente1 = new Cliente();
         cliente1.nome = "Deborah";
         cliente1.cpf = "112233445";
+
         Cliente cliente2 = new Cliente();
         cliente2.nome = "Matheus";
         cliente2.cpf = "11223345";
 
-        ContaCorrente contaDeborah = new ContaCorrente();
+        ContaCorrente contaDeborah = new ContaCorrente(); //
         contaDeborah.cliente = cliente1;
         contaDeborah.agencia = 1122;
         contaDeborah.numeroConta = "1234";
@@ -39,14 +41,12 @@ public class Main {
                     System.out.println("Qual valor deseja depositar? ");
                     double valorDeposito = scanner.nextDouble();
                     if (opcaoCliente == 1 && contaDeborah.depositar(valorDeposito)) {
-                        contaDeborah.saldo += valorDeposito;
                         System.out.println("O saldo atual desta conta é: " + contaDeborah.saldo);
                     }
                     if (opcaoCliente == 1 && !contaDeborah.depositar(valorDeposito)) {
                         System.out.println("Não foi possível realizar essa operação!");
                     }
                     if (opcaoCliente == 2 && contaMatheus.depositar(valorDeposito)) {
-                        contaMatheus.saldo += valorDeposito;
                         System.out.println("O saldo atual desta conta é: " + contaMatheus.saldo);
                     }
                     if (opcaoCliente == 2 && !contaMatheus.depositar(valorDeposito)) {
@@ -64,8 +64,6 @@ public class Main {
                             System.out.println("Digite a quantia a ser transferida: ");
                             double valorTransferencia = scanner.nextDouble();
                             if (contaDeborah.transferir(contaMatheus, valorTransferencia)) {
-                                contaMatheus.saldo += valorTransferencia;
-                                contaDeborah.saldo -= valorTransferencia;
                                 System.out.println("O novo saldo de Matheus é: " + contaMatheus.saldo);
                             }
                             else {
@@ -83,8 +81,6 @@ public class Main {
                             System.out.println("Digite a quantia a ser transferida: ");
                             double valorTransferencia = scanner.nextDouble();
                             if (contaMatheus.transferir(contaDeborah, valorTransferencia)) {
-                                contaDeborah.saldo += valorTransferencia;
-                                contaMatheus.saldo -=valorTransferencia;
                                 System.out.println("O novo saldo de Deborah é: " + contaDeborah.saldo);
                             }
                             else {
@@ -98,7 +94,6 @@ public class Main {
                     double valorSaque = scanner.nextDouble();
                     if (opcaoCliente == 1) {
                         if (contaDeborah.sacar(valorSaque)) {
-                            contaDeborah.saldo -= valorSaque;
                             System.out.println("O novo saldo desta conta é: " + contaDeborah.saldo);
                         }
                         else {
@@ -107,7 +102,6 @@ public class Main {
                     }
                     if (opcaoCliente == 2) {
                         if (contaMatheus.sacar(valorSaque)) {
-                            contaMatheus.saldo -= valorSaque;
                             System.out.println("O novo saldo desta conta é: " + contaMatheus.saldo);
                         }
                         else {

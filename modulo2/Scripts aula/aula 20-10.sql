@@ -1,0 +1,68 @@
+SELECT P.*,
+	   C.*,
+	   
+FROM PESSOA P CROSS JOIN CONTATO C;
+
+-- Inner join contato pessoa
+SELECT P.NOME,
+	   C.*
+	   
+FROM PESSOA P
+
+INNER JOIN CONTATO C ON (P.ID_PESSOA = C.ID_PESSOA)
+	   
+
+-- Inner join entre pessoa, pessoa_X_pessoa_Endereco e Endereco_Pessoa
+
+SELECT	P.*, -- aqui pode colocar "*"
+		PXPE.*,
+		EP.*
+		
+FROM PESSOA P
+
+INNER JOIN PESSOA_X_PESSOA_ENDERECO pxpe ON (PXPE.ID_PESSOA = P.ID_PESSOA)
+INNER JOIN ENDERECO_PESSOA EP ON (EP.ID_ENDERECO = PXPE.ID_ENDERECO);
+
+-- Inner join de todas começando por pessoa
+SELECT	P.*,
+		PXPE.*,
+		EP.*,
+		C.*
+		
+FROM PESSOA P
+
+INNER JOIN PESSOA_X_PESSOA_ENDERECO pxpe ON (PXPE.ID_PESSOA = P.ID_PESSOA)
+INNER JOIN ENDERECO_PESSOA EP ON (EP.ID_ENDERECO = PXPE.ID_ENDERECO)
+INNER JOIN CONTATO C ON (C.ID_PESSOA = P.ID_PESSOA);
+
+-- Left join de pessoa com contato
+
+SELECT P.*,
+	   C.*
+	   
+FROM PESSOA P
+LEFT JOIN CONTATO C ON (C.ID_PESSOA = P.ID_PESSOA)
+
+-- left join de pessoa e pessoa_x_pessoa_endereco e endereco_pessoa
+
+SELECT  P.*,
+		PXPE.*,
+		EP.*
+		
+FROM PESSOA P
+
+LEFT JOIN PESSOA_X_PESSOA_ENDERECO PXPE ON (PXPE.ID_PESSOA = P.ID_PESSOA)
+LEFT JOIN ENDERECO_PESSOA EP ON (EP.ID_ENDERECO = PXPE.ID_ENDERECO)
+
+-- left join entre pessoa, contato e endereco_pessoa
+
+SELECT P.*,
+	   EP.*,
+	   C.*,
+	   PXPE.*
+	   
+FROM PESSOA P
+LEFT JOIN PESSOA_X_PESSOA_ENDERECO pxpe ON (PXPE.ID_PESSOA = P.ID_PESSOA)
+LEFT JOIN ENDERECO_PESSOA EP ON (EP.ID_ENDERECO = PXPE.ID_ENDERECO)
+LEFT JOIN CONTATO C ON (C.ID_PESSOA = P.ID_PESSOA);
+

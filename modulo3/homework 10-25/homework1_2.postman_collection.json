@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "933bfbdd-476c-4617-bb77-061a63d29675",
+		"name": "homework1_2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET pessoa",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://my-application-teste.herokuapp.com/pessoa",
+					"protocol": "https",
+					"host": [
+						"my-application-teste",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"pessoa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT pessoa",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nome\": \"Deborah Silveira\",\r\n        \"dataNascimento\": \"1991-05-08\",\r\n        \"cpf\": \"12345678911\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://my-application-teste.herokuapp.com/pessoa/2",
+					"protocol": "https",
+					"host": [
+						"my-application-teste",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"pessoa",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST pessoa",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nome\": \"Deborah Regina Silveira\",\r\n        \"dataNascimento\": \"1991-05-08\",\r\n        \"cpf\": \"12345678911\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://my-application-teste.herokuapp.com/pessoa",
+					"protocol": "https",
+					"host": [
+						"my-application-teste",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"pessoa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE pessoa",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://my-application-teste.herokuapp.com/pessoa/1",
+					"protocol": "https",
+					"host": [
+						"my-application-teste",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"pessoa",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET contato",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://my-application-teste.herokuapp.com/contato",
+					"protocol": "https",
+					"host": [
+						"my-application-teste",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT contato",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"idPessoa\": 3,\r\n        \"tipoContato\": \"COMERCIAL\",\r\n        \"numero\": \"04833545655\",\r\n        \"descricao\": \"casa\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://my-application-teste.herokuapp.com/contato/2",
+					"protocol": "https",
+					"host": [
+						"my-application-teste",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contato",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST contato",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"idPessoa\": 3,\r\n        \"tipoContato\": \"RESIDENCIAL\",\r\n        \"numero\": \"051998654789\",\r\n        \"descricao\": \"casa\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://my-application-teste.herokuapp.com/contato/3",
+					"protocol": "https",
+					"host": [
+						"my-application-teste",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contato",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE contato",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}

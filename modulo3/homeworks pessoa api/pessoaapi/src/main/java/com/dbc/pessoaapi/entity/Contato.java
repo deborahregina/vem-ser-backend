@@ -1,10 +1,23 @@
 package com.dbc.pessoaapi.entity;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Contato {
+
     private Integer idContato;
+
     private Integer idPessoa;
+
+    @NotNull
     private TipoContato tipoContato;
+
+    @NotBlank
+    @Size(min = 0, max = 13)
     private String numero;
+
+    @NotBlank
     private String descricao;
 
     public Contato() {

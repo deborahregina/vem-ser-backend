@@ -2,6 +2,7 @@ package com.dbc.pessoaapi.repository;
 
 
 import com.dbc.pessoaapi.entity.*;
+import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,9 +33,9 @@ public class EnderecoRepository {
     }
 
 
-    public Endereco create(Endereco endereco, Integer idPessoa) {
+    public Endereco create(Endereco endereco) {
         endereco.setIdEndereco(COUNTER.incrementAndGet());
-        endereco.setIdPessoa(idPessoa);
+
         listaEnderecos.add(endereco);
         return endereco;
     }
@@ -43,22 +44,27 @@ public class EnderecoRepository {
         return listaEnderecos;
     }
 
-    public Endereco listaEnd(Integer idEndereco) throws Exception {
+    public Endereco listaEnd(Integer idEndereco) throws RegraDeNegocioException {
         return listaEnderecos.stream()
                 .filter(endereco -> endereco.getIdEndereco().equals(idEndereco)).findFirst()
-                .orElseThrow(() -> new Exception("Endereco não econtrado"));
+                .orElseThrow(() -> new RegraDeNegocioException("Endereco não econtrado"));
     }
 
-    public List<Endereco> listByIdPessoa(Integer idPessoa) {
+    public List<Endereco> listByIdPessoa(Integer idPessoa) throws RegraDeNegocioException {
+
+        pessoaService.list().stream()
+                .filter(pessoa -> pessoa.getIdPessoa().equals(idPessoa)).findFirst()
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada"));
+
         return listaEnderecos.stream().filter(endereco -> endereco.getIdPessoa().equals(idPessoa)).collect(Collectors.toList());
     }
 
     public Endereco update(Integer idEndereco,
-                          Endereco enderecoAtualizar) throws Exception {
+                          Endereco enderecoAtualizar) throws RegraDeNegocioException {
         Endereco enderecoRecuperado = listaEnderecos.stream()
                 .filter(endereco -> endereco.getIdEndereco().equals(idEndereco))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Endereco não econtrado"));
+                .orElseThrow(() -> new RegraDeNegocioException("Endereco não econtrado"));
         enderecoRecuperado.setCep(enderecoAtualizar.getCep());
         enderecoRecuperado.setCidade(enderecoAtualizar.getCidade());
         enderecoRecuperado.setNumero(enderecoAtualizar.getNumero());
@@ -74,7 +80,7 @@ public class EnderecoRepository {
         Endereco enderecoRecuperado = listaEnderecos.stream()
                 .filter(endereco -> endereco.getIdEndereco().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Endereco não econtrado"));
+                .orElseThrow(() -> new RegraDeNegocioException("Endereco não econtrado"));
         listaEnderecos.remove(enderecoRecuperado);
     }
 }

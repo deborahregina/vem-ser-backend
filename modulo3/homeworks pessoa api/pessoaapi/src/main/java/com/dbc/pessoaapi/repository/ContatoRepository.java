@@ -3,6 +3,7 @@ package com.dbc.pessoaapi.repository;
 import com.dbc.pessoaapi.entity.Contato;
 import com.dbc.pessoaapi.entity.Pessoa;
 import com.dbc.pessoaapi.entity.TipoContato;
+import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,8 +31,12 @@ public class ContatoRepository {
         listaContatos.add(new Contato(COUNTER.incrementAndGet(), listapessoas.get(2).getIdPessoa(), TipoContato.ofTipo(2), "92200699", "Residencial"));
     }
 
-    public Contato create(Contato contato, Integer idPessoa) {
+    public Contato create(Contato contato, Integer idPessoa) throws RegraDeNegocioException {
         contato.setIdContato(COUNTER.incrementAndGet());
+        List<Pessoa> listapessoas = pessoaService.list();
+        listapessoas.stream().filter(pessoa -> pessoa.getIdPessoa().equals(idPessoa))
+                        .findFirst()
+                                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada"));
         contato.setIdPessoa(idPessoa);
         listaContatos.add(contato);
         return contato;
@@ -42,11 +47,11 @@ public class ContatoRepository {
     }
 
     public Contato update(Integer idContato,
-                         Contato contatoAtualizar) throws Exception {
+                         Contato contatoAtualizar) throws RegraDeNegocioException {
         Contato contatoRecuperada = listaContatos.stream()
                 .filter(contato -> contato.getIdContato().equals(idContato))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Contato não econtrado"));
+                .orElseThrow(() -> new RegraDeNegocioException("Contato não econtrado"));
         contatoRecuperada.setDescricao(contatoAtualizar.getDescricao());
         contatoRecuperada.setTipoContato(contatoAtualizar.getTipoContato());
         contatoRecuperada.setNumero(contatoAtualizar.getNumero());
@@ -54,24 +59,23 @@ public class ContatoRepository {
         return contatoRecuperada;
     }
 
-    public List<Contato> listByPessoa(Integer idPessoa) throws Exception {
-        //List<Contato> contatoDaspessoas = new ArrayList<>();
+    public List<Contato> listByPessoa(Integer idPessoa) throws RegraDeNegocioException {
+        List<Contato> contatoDaspessoas;
 
-        return listaContatos.stream()
+        contatoDaspessoas = listaContatos.stream()
                 .filter(contato -> contato.getIdPessoa().equals(idPessoa))
-                        .collect(Collectors.toList());
-        //for (Contato cont : listaContatos) {
-        //  if(cont.getIdPessoa() == idPessoa) {
-            // contatoDaspessoas.add(cont);
-            //}
-       // }
+                .collect(Collectors.toList());
+        if (contatoDaspessoas.isEmpty()) {
+            throw new RegraDeNegocioException("Pessoa não encontrada!");
+        }
+        return contatoDaspessoas;
     }
 
-    public void delete(Integer id) throws Exception {
+    public void delete(Integer id) throws RegraDeNegocioException {
         Contato contatoRecuperada = listaContatos.stream()
                 .filter(contato -> contato.getIdContato().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Pessoa não econtrada"));
+                .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado"));
         listaContatos.remove(contatoRecuperada);
     }
 }

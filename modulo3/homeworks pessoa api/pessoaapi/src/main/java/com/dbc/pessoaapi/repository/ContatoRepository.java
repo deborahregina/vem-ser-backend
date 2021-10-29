@@ -33,11 +33,6 @@ public class ContatoRepository {
 
     public Contato create(Contato contato, Integer idPessoa) throws RegraDeNegocioException {
         contato.setIdContato(COUNTER.incrementAndGet());
-        List<Pessoa> listapessoas = pessoaService.list();
-        listapessoas.stream().filter(pessoa -> pessoa.getIdPessoa().equals(idPessoa))
-                        .findFirst()
-                                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada"));
-        contato.setIdPessoa(idPessoa);
         listaContatos.add(contato);
         return contato;
     }

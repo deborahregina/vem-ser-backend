@@ -1,52 +1,73 @@
 package com.dbc.pessoaapi.service;
 
 
-import com.dbc.pessoaapi.entity.Contato;
-import com.dbc.pessoaapi.entity.Pessoa;
+import com.dbc.pessoaapi.dto.ContatoCreateDTO;
+import com.dbc.pessoaapi.dto.ContatoDTO;
+import com.dbc.pessoaapi.dto.PessoaDTO;
+import com.dbc.pessoaapi.entity.ContatoEntity;
+import com.dbc.pessoaapi.entity.PessoaEntity;
+import com.dbc.pessoaapi.entity.TipoContato;
 import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.repository.ContatoRepository;
-import com.dbc.pessoaapi.repository.PessoaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class ContatoService {
 
-    @Autowired
-    private ContatoRepository contatoRepository;
-
-    @Autowired
-    private PessoaService pessoaService;
+    private final ContatoRepository contatoRepository;
+    private final ObjectMapper objectMapper;
+    private final PessoaService pessoaService;
 
 
-    public Contato create(Contato contato, Integer idPessoa) throws RegraDeNegocioException {
-        List<Pessoa> listapessoas = pessoaService.list();
+    public ContatoDTO create(ContatoCreateDTO contatoCreateDTO, Integer idPessoa) throws RegraDeNegocioException {
+        List<PessoaDTO> listapessoas = pessoaService.list();
         listapessoas.stream().filter(pessoa -> pessoa.getIdPessoa().equals(idPessoa))
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada"));
-        contato.setIdPessoa(idPessoa);
 
-        return contatoRepository.create(contato, idPessoa);
+        contatoCreateDTO.setIdPessoa(idPessoa);
+        ContatoEntity contatoEntity = objectMapper.convertValue(contatoCreateDTO, ContatoEntity.class);
+        ContatoEntity contatoCriado = contatoRepository.create(contatoEntity);
+        ContatoDTO contatoDTO = objectMapper.convertValue(contatoCriado, ContatoDTO.class);
+        objectMapper.enable(SerializationFeature.WRITE_ENUMS_USING_INDEX);
+
+
+        return contatoDTO;
     }
 
-    public List<Contato> list(){
-        return contatoRepository.list();
+    public List<ContatoDTO> list(){
+
+        return contatoRepository.list().stream()
+                .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
+                .collect(Collectors.toList());
+
     }
 
-    public Contato update(Integer idContato,
-                         Contato contatoAtualizar) throws RegraDeNegocioException {
-        return contatoRepository.update(idContato, contatoAtualizar);
+    public ContatoDTO update(Integer idContato,
+                                ContatoCreateDTO contatoCreateDTO) throws RegraDeNegocioException {
+
+        ContatoEntity contatoEntity = objectMapper.convertValue(contatoCreateDTO, ContatoEntity.class);
+        ContatoEntity contatoCriado = contatoRepository.update(idContato,contatoEntity);
+        ContatoDTO contatoDTO = objectMapper.convertValue(contatoCriado, ContatoDTO.class);
+
+        return contatoDTO;
+
     }
 
-    public List<Contato> listByPessoa(Integer idPessoa) throws RegraDeNegocioException {
-        return contatoRepository.listByPessoa(idPessoa);
+    public List<ContatoDTO> listByPessoa(Integer idPessoa) throws RegraDeNegocioException {
+        return contatoRepository.listByPessoa(idPessoa).stream()
+                .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
+                .collect(Collectors.toList());
     }
     public void delete(Integer id) throws RegraDeNegocioException {
         contatoRepository.delete(id);

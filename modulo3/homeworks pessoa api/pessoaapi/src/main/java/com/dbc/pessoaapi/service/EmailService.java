@@ -30,35 +30,6 @@ public class EmailService {
     private String remetente;
     private final Configuration configuration;
 
-    public void enviarEmailSimples() {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(remetente);
-        message.setTo("maicon.gerardi@dbccompany.com.br");
-        message.setSubject("Assunto do e-mail");
-        message.setText("Olá,\n\nEste é um exemplo de envio de e-mail pelo JavaMail!\n\n\nAtt,\nMaicon.");
-        emailSender.send(message);
-    }
-
-    public void enviarEmailComAnexos() throws MessagingException {
-        MimeMessage message = emailSender.createMimeMessage();
-
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-        helper.setFrom(remetente);
-        helper.setTo("maicon.gerardi@dbccompany.com.br");
-        helper.setSubject("Email com anexo Exemplo");
-        helper.setText("Teste");
-
-        File file = new File("imagem.jpg");
-        FileSystemResource fileSystemResource = new FileSystemResource(file);
-        helper.addAttachment(file.getName(), fileSystemResource);
-
-        File file2 = new File("HELP.md");
-        FileSystemResource fileSystemResource2 = new FileSystemResource(file2);
-        helper.addAttachment(file2.getName(), fileSystemResource2);
-
-        emailSender.send(message);
-    }
 
     public void enviarEmailComTemplateAlteracao(PessoaDTO pessoaDTO) throws MessagingException, IOException, TemplateException {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
@@ -113,31 +84,5 @@ public class EmailService {
         emailSender.send(message);
 
     }
-
-    public void enviarEmailComTemplateAndAnexos() throws MessagingException, IOException, TemplateException {
-        MimeMessage mimeMessage = emailSender.createMimeMessage();
-
-        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-
-        helper.setFrom(remetente);
-        helper.setTo("maicon.gerardi@dbccompany.com.br");
-        helper.setSubject("Email com template Exemplo");
-
-        Template template = configuration.getTemplate("email-template.ftl");
-        Map<String, Object> dados = new HashMap<>();
-        dados.put("nomeUsuario", "Maicon Gerardi");
-        dados.put("idade", 30);
-        dados.put("cidade", "Florianópolis");
-        String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, dados);
-
-        helper.setText(html, true);
-
-        File file = new File("imagem.jpg");
-        FileSystemResource fileSystemResource = new FileSystemResource(file);
-        helper.addAttachment("foto.jpg", fileSystemResource);
-
-        emailSender.send(mimeMessage);
-    }
-
 
 }

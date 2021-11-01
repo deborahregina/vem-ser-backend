@@ -10,14 +10,9 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
-public class PessoaDTO extends PessoaEntity {
+public class PessoaDTO extends PessoaCreateDTO {
 
     private Integer idPessoa;
 
-    @NotEmpty
-    @NotBlank
-    private String nome;
 
-    @NotNull
-    private LocalDate dataNascimento;
 }

@@ -9,7 +9,7 @@ import lombok.ToString;
 import javax.validation.constraints.*;
 
 @Data
-public class ContatoDTO extends ContatoEntity {
+public class ContatoDTO extends ContatoCreateDTO {
     private Integer idContato;
 
 }

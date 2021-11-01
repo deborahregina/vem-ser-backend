@@ -24,5 +24,7 @@ public class PessoaEntity {
 
     private String cpf;
 
+    private String email;
+
 
 }

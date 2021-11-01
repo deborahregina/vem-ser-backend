@@ -5,7 +5,7 @@ import com.dbc.pessoaapi.entity.TipoEndereco;
 import lombok.Data;
 
 @Data
-public class EnderecoDTO extends EnderecoEntity {
+public class EnderecoDTO extends EnderecoCreateDTO {
 
     private Integer idEndereco;
 

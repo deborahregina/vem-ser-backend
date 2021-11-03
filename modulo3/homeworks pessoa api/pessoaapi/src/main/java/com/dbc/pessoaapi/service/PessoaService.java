@@ -42,7 +42,7 @@ public class PessoaService {
         PessoaEntity pessoaCriada = pessoaRepository.create(pessoaEntity);
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaCriada, PessoaDTO.class);
 
-        emailService.enviarEmailSaudacoes(pessoaDTO);
+        //emailService.enviarEmailSaudacoes(pessoaDTO);
 
         return pessoaDTO;
     }
@@ -60,7 +60,7 @@ public class PessoaService {
         PessoaEntity pessoaEntity = objectMapper.convertValue(pessoaCreateDTO, PessoaEntity.class);
         PessoaEntity pessoaAtualizada = pessoaRepository.update(id,pessoaEntity);
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaAtualizada, PessoaDTO.class);
-        emailService.enviarEmailComTemplateAlteracao(pessoaDTO);
+        //emailService.enviarEmailComTemplateAlteracao(pessoaDTO);
         return pessoaDTO;
     }
 
@@ -68,14 +68,18 @@ public class PessoaService {
         PessoaEntity pessoaEntity = pessoaRepository.getById(id);
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntity, PessoaDTO.class);
         pessoaRepository.delete(id);
-        emailService.enviarEmailComTemplateDelete(pessoaDTO);
+        //emailService.enviarEmailComTemplateDelete(pessoaDTO);
     }
 
-    public List<PessoaDTO> listByName(String nome) {
+    public List<PessoaDTO> listByName(String nome) throws RegraDeNegocioException {
 
-        return pessoaRepository.listByName(nome).stream()
+        List <PessoaDTO> listaNomes = pessoaRepository.listByName(nome).stream()
                 .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
                 .collect(Collectors.toList());
+        if (listaNomes.isEmpty()) {
+            throw new RegraDeNegocioException("Pessoa não encontrada");
+        }
+        return listaNomes;
 
     }
 }

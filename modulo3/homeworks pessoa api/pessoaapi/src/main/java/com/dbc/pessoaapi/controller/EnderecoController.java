@@ -5,6 +5,9 @@ import com.dbc.pessoaapi.dto.EnderecoDTO;
 import com.dbc.pessoaapi.entity.EnderecoEntity;
 import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.service.EnderecoService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +25,12 @@ public class EnderecoController {
 
     private final EnderecoService enderecoService;
 
+    @ApiOperation(value = "Cria uma novo endereço para uma pessoa cadastrada")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Endereço cadastrado com sucesso"),
+            @ApiResponse(code = 400, message = "Pessoa não encontrada"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção")
+    })
     @PostMapping("/{idPessoa}")
     public EnderecoDTO create(@RequestBody @Valid EnderecoCreateDTO enderecoCreateDTO, @PathVariable("idPessoa") Integer idPessoa) throws RegraDeNegocioException {
         log.info("Criando endereço...");
@@ -30,21 +39,44 @@ public class EnderecoController {
         return enderecoCriado;
     }
 
+    @ApiOperation(value = "Lista todos os endereços cadastrados")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Listagem de endereços"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção")
+    })
     @GetMapping
     public List<EnderecoDTO> list() {
         return enderecoService.list();
     }
 
+    @ApiOperation(value = "Lista endereço por ID do endereço")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Endereço encontrado"),
+            @ApiResponse(code = 400, message = "Endereço não encontrada"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção")
+    })
     @GetMapping("/{idEndereco}")
     public EnderecoDTO listByPessoa(@PathVariable("idEndereco") Integer idEndereco) throws Exception {
        return enderecoService.listaEnd(idEndereco);
     }
 
+    @ApiOperation(value = "Lista todos os endereços de uma pessoa cadastrada")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Lista de endereços"),
+            @ApiResponse(code = 400, message = "Pessoa não encontrada"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção")
+    })
     @GetMapping("/{idPessoa}/pessoa")
     public List<EnderecoDTO> listByIdPessoa(@PathVariable("idPessoa") Integer idPessoa) throws RegraDeNegocioException {
         return enderecoService.listByIdPessoa(idPessoa);
     }
 
+    @ApiOperation(value = "Altera informações de um endereço")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Endereço alterado com sucesso"),
+            @ApiResponse(code = 400, message = "Endereço não encontrado"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção")
+    })
     @PutMapping("/{id}")
     public EnderecoDTO update(@PathVariable("id") Integer id,
                                  @RequestBody @Valid EnderecoCreateDTO endereco) throws Exception {
@@ -54,6 +86,12 @@ public class EnderecoController {
         return enderecoAtualizado;
     }
 
+    @ApiOperation(value = "Deleta endereço")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Endereço deletado com sucesso"),
+            @ApiResponse(code = 400, message = "Endereço não encontrado"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção")
+    })
     @DeleteMapping("/{idEndereco}")
     public void delete(@PathVariable("idEndereco") Integer id) throws Exception {
         log.info("Deletando endereço...");

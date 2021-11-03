@@ -15,7 +15,7 @@
                         style="background-color: #d3be6c; font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #000000; padding: 0px 15px 10px 15px;">
 
                         <div style="font-size: 48px; color:blue;">
-                            <b>Alterações cadastrais</b>
+                            <b>Conta cancelada</b>
                         </div>
 
                         <div style="font-size: 20px; color: #555100;">

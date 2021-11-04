@@ -1,8 +1,11 @@
 package com.dbc.pessoaapi.repository;
 
+import com.dbc.pessoaapi.client.DadosPessoaisClient;
 import com.dbc.pessoaapi.dto.PessoaDTO;
 import com.dbc.pessoaapi.entity.PessoaEntity;
 import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -16,17 +19,21 @@ import java.util.stream.Collectors;
 public class PessoaRepository {
     private static List<PessoaEntity> listaPessoas = new ArrayList<>();
     private AtomicInteger COUNTER = new AtomicInteger();
+    @Autowired
+    private DadosPessoaisClient dadosPessoaisClient;
 
 
-    public PessoaRepository() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //18/10/2020
-        listaPessoas.add(new PessoaEntity(COUNTER.incrementAndGet() /*1*/, "Maicon Gerardi", LocalDate.parse("10/10/1990", formatter), "12345678910","deborah.regina@dbccompany.com.br"));
-        listaPessoas.add(new PessoaEntity(COUNTER.incrementAndGet() /*2*/, "Charles Pereira", LocalDate.parse("08/05/1985", formatter), "12345678911","deborah.regina@dbccompany.com.br"));
-        listaPessoas.add(new PessoaEntity(COUNTER.incrementAndGet() /*3*/, "Marina Oliveira", LocalDate.parse("30/03/1970", formatter), "12345678912","deborah.regina@dbccompany.com.br"));
-    }
+
+//    public PessoaRepository() {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //18/10/2020
+//        listaPessoas.add(new PessoaEntity(COUNTER.incrementAndGet() /*1*/, "Maicon Gerardi", LocalDate.parse("10/10/1990", formatter), "12345678910","deborah.regina@dbccompany.com.br"));
+//        listaPessoas.add(new PessoaEntity(COUNTER.incrementAndGet() /*2*/, "Charles Pereira", LocalDate.parse("08/05/1985", formatter), "12345678911","deborah.regina@dbccompany.com.br"));
+//        listaPessoas.add(new PessoaEntity(COUNTER.incrementAndGet() /*3*/, "Marina Oliveira", LocalDate.parse("30/03/1970", formatter), "12345678912","deborah.regina@dbccompany.com.br"));
+//    }
 
     public PessoaEntity create(PessoaEntity pessoa) {
         pessoa.setIdPessoa(COUNTER.incrementAndGet());
+
         listaPessoas.add(pessoa);
 
         return pessoa;
@@ -69,4 +76,12 @@ public class PessoaRepository {
                 .findFirst()
                 .orElseThrow(() -> new Exception("Pessoa não econtrada"));
     }
+
+    public PessoaEntity getByCPF(String CPF) throws Exception {
+        return listaPessoas.stream()
+                .filter(pessoa -> pessoa.getIdPessoa().equals(CPF))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Pessoa não econtrada"));
+    }
+
 }

@@ -6,6 +6,8 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -21,5 +23,8 @@ public interface DadosPessoaisClient {
 
     @RequestLine("POST /dados-pessoais")
     DadosPessoaisDTO create(DadosPessoaisDTO dadosPessoaisDTO);
+
+    @RequestLine("DELETE /dados-pessoais/{cpf}")
+    DadosPessoaisDTO delete(@PathVariable("cpf") String cpf);
 
 }

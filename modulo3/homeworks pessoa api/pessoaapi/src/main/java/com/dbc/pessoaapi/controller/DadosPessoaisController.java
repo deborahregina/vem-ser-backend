@@ -39,4 +39,8 @@ public class DadosPessoaisController {
         return dadosPessoaisService.getPorCpf(cpf);
     }
 
+    @DeleteMapping("{cpf}")
+    public DadosPessoaisDTO delete(@PathVariable("cpf") String cpf) {
+        return dadosPessoaisService.delete(cpf);
+    }
 }

@@ -29,17 +29,17 @@ public class ContatoRepository {
     private final PessoaRepository pessoaRepository;
     private final ObjectMapper objectMapper;
 
-    @PostConstruct
-    public void inicializar() {
-
-        List<PessoaDTO> listapessoas = pessoaRepository.list().stream()
-                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
-                .collect(Collectors.toList());
-
-        listaContatos.add(new ContatoEntity(COUNTER.incrementAndGet(), listapessoas.get(0).getIdPessoa(), TipoContato.RESIDENCIAL, "92523699", "Whatsapp"));
-        listaContatos.add(new ContatoEntity(COUNTER.incrementAndGet(), listapessoas.get(1).getIdPessoa(),TipoContato.COMERCIAL, "92200300", "Residencial"));
-        listaContatos.add(new ContatoEntity(COUNTER.incrementAndGet(), listapessoas.get(2).getIdPessoa(), TipoContato.RESIDENCIAL, "92200699", "Residencial"));
-    }
+//    @PostConstruct
+//    public void inicializar() {
+//
+//        List<PessoaDTO> listapessoas = pessoaRepository.list().stream()
+//                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
+//                .collect(Collectors.toList());
+//
+//        listaContatos.add(new ContatoEntity(COUNTER.incrementAndGet(), listapessoas.get(0).getIdPessoa(), TipoContato.RESIDENCIAL, "92523699", "Whatsapp"));
+//        listaContatos.add(new ContatoEntity(COUNTER.incrementAndGet(), listapessoas.get(1).getIdPessoa(),TipoContato.COMERCIAL, "92200300", "Residencial"));
+//        listaContatos.add(new ContatoEntity(COUNTER.incrementAndGet(), listapessoas.get(2).getIdPessoa(), TipoContato.RESIDENCIAL, "92200699", "Residencial"));
+//    }
 
     public ContatoEntity create(ContatoEntity contato) throws RegraDeNegocioException {
         contato.setIdContato(COUNTER.incrementAndGet());

@@ -1,9 +1,11 @@
 package com.dbc.pessoaapi.controller;
 
+import com.dbc.pessoaapi.dto.DadosPessoaisDTO;
 import com.dbc.pessoaapi.dto.PessoaCreateDTO;
 import com.dbc.pessoaapi.dto.PessoaDTO;
 import com.dbc.pessoaapi.entity.PessoaEntity;
 import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
+import com.dbc.pessoaapi.service.DadosPessoaisService;
 import com.dbc.pessoaapi.service.PessoaService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -24,6 +26,7 @@ import java.util.List;
 public class PessoaController {
 
     private final PessoaService pessoaService;
+    private final DadosPessoaisService dadosPessoaisService;
 
     @ApiOperation(value = "Cria uma nova pessoa")
     @ApiResponses(value = {
@@ -33,11 +36,13 @@ public class PessoaController {
     })
     @PostMapping
     public PessoaDTO create(@RequestBody @Valid PessoaCreateDTO pessoaCreateDTO) throws Exception {
-        log.info("iniciando criação da pessoa");
+        DadosPessoaisDTO dadosPessoaisNovoDTO = pessoaCreateDTO.getDadosPessoaisDTO();
         PessoaDTO pessoaEntityCriado = pessoaService.create(pessoaCreateDTO);
-        log.info("Pessoa criada com sucesso!");
+        pessoaEntityCriado.setDadosPessoaisDTO(dadosPessoaisNovoDTO);
+        dadosPessoaisService.create(dadosPessoaisNovoDTO);
         return pessoaEntityCriado;
     }
+
     @ApiOperation(value = "Lista pessoa por ID")
     @GetMapping("/{idPessoa}")
     public PessoaDTO getById(@RequestParam("idPessoa") Integer idPessoa) throws Exception {
@@ -88,7 +93,6 @@ public class PessoaController {
     })
     @DeleteMapping("/{idPessoa}")
     public void delete(@PathVariable("idPessoa") Integer id) throws Exception {
-        log.info("Deletando pessoa..");
         pessoaService.delete(id);
         log.info("Pessoa deletada com sucesso!");
     }

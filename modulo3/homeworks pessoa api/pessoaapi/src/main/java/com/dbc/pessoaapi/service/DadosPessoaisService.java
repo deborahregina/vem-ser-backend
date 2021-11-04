@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DadosPessoaisService {
 
-    private final PessoaRepository pessoaRepository;
+    private final PessoaService pessoaService;
     private final ObjectMapper objectMapper;
     private final DadosPessoaisClient dadosPessoaisClient;
 
@@ -33,6 +33,11 @@ public class DadosPessoaisService {
 
     public DadosPessoaisDTO getPorCpf(String cpf) {
         return dadosPessoaisClient.getPorCpf(cpf);
+    }
+
+    public DadosPessoaisDTO delete(String cpf) throws Exception {
+        pessoaService.delete(pessoaService.getByCPF(cpf).getIdPessoa());
+        return dadosPessoaisClient.delete(cpf);
     }
 
 }

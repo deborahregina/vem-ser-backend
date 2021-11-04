@@ -38,6 +38,11 @@ public class PessoaController {
         log.info("Pessoa criada com sucesso!");
         return pessoaEntityCriado;
     }
+    @ApiOperation(value = "Lista pessoa por ID")
+    @GetMapping("/{idPessoa}")
+    public PessoaDTO getById(@RequestParam("idPessoa") Integer idPessoa) throws Exception {
+        return pessoaService.getById(idPessoa);
+    }
 
     @ApiOperation(value = "Lista todos os registros de pessoa")
     @ApiResponses(value = {

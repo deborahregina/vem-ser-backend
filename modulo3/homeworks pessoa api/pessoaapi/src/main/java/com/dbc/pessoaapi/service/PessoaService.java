@@ -1,5 +1,7 @@
 package com.dbc.pessoaapi.service;
 
+import com.dbc.pessoaapi.client.DadosPessoaisClient;
+import com.dbc.pessoaapi.dto.DadosPessoaisDTO;
 import com.dbc.pessoaapi.dto.PessoaCreateDTO;
 import com.dbc.pessoaapi.dto.PessoaDTO;
 import com.dbc.pessoaapi.entity.PessoaEntity;
@@ -26,6 +28,7 @@ public class PessoaService {
     private final ObjectMapper objectMapper;
     @Autowired
     private EmailService emailService;
+    private final DadosPessoaisClient dadosPessoaisClient;
 
     public PessoaDTO create(PessoaCreateDTO pessoaCreateDTO) throws Exception {
         if(StringUtils.isBlank(pessoaCreateDTO.getNome())) {
@@ -64,7 +67,7 @@ public class PessoaService {
         return pessoaDTO;
     }
 
-    public void delete(Integer id) throws RegraDeNegocioException, MessagingException, TemplateException, IOException {
+    public void delete(Integer id) throws Exception {
         PessoaEntity pessoaEntity = pessoaRepository.getById(id);
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaEntity, PessoaDTO.class);
         pessoaRepository.delete(id);
@@ -82,4 +85,13 @@ public class PessoaService {
         return listaNomes;
 
     }
+
+    public PessoaDTO getById(Integer id) throws Exception {
+        PessoaEntity entity = pessoaRepository.getById(id);
+        DadosPessoaisDTO dadosPessoaisDTO = dadosPessoaisClient.getPorCpf(entity.getCpf());
+        PessoaDTO dto = objectMapper.convertValue(entity, PessoaDTO.class);
+        dto.setDadosPessoaisDTO(dadosPessoaisDTO);
+        return dto;
+    }
+
 }

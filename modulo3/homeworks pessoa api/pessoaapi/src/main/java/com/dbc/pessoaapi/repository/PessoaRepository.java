@@ -63,11 +63,10 @@ public class PessoaRepository {
                 .collect(Collectors.toList());
     }
 
-    public PessoaEntity getById(Integer id) throws RegraDeNegocioException {
-        PessoaEntity pessoaEntityRecuperada = listaPessoas.stream()
-                .filter(pessoaEntity -> pessoaEntity.getIdPessoa().equals(id))
+    public PessoaEntity getById(Integer id) throws Exception {
+        return listaPessoas.stream()
+                .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não econtrada"));
-        return pessoaEntityRecuperada;
+                .orElseThrow(() -> new Exception("Pessoa não econtrada"));
     }
 }

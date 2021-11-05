@@ -52,6 +52,7 @@ public class PessoasDadosPessoaisService {
         DadosPessoaisDTO dadosPessoaisNovoDTO = objectMapper.convertValue(pessoaDadosPessoaisDTO, DadosPessoaisDTO.class);
         PessoaCreateDTO pessoaCreateDTO = objectMapper.convertValue(pessoaDadosPessoaisDTO, PessoaCreateDTO.class);
 
+        pessoaCreateDTO.setDadosPessoaisDTO(dadosPessoaisNovoDTO);
         pessoaService.update(cpf, pessoaCreateDTO);
         dadosPessoaisService.update(cpf, dadosPessoaisNovoDTO);
         PessoaDadosPessoaisEntity pessoaEntity = objectMapper.convertValue(pessoaDadosPessoaisDTO, PessoaDadosPessoaisEntity.class);

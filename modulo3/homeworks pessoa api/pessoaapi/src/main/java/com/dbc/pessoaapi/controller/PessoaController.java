@@ -36,20 +36,17 @@ public class PessoaController {
     })
     @PostMapping
     public PessoaDTO create(@RequestBody @Valid PessoaCreateDTO pessoaCreateDTO) throws Exception {
-        DadosPessoaisDTO dadosPessoaisNovoDTO = pessoaCreateDTO.getDadosPessoaisDTO();
         PessoaDTO pessoaEntityCriado = pessoaService.create(pessoaCreateDTO);
-        pessoaEntityCriado.setDadosPessoaisDTO(dadosPessoaisNovoDTO);
-        dadosPessoaisService.create(dadosPessoaisNovoDTO);
         return pessoaEntityCriado;
     }
 
-    @ApiOperation(value = "Lista pessoa por ID")
+    @ApiOperation(value = "Lista pessoa e dados pessoais por ID")
     @GetMapping("/{idPessoa}")
     public PessoaDTO getById(@RequestParam("idPessoa") Integer idPessoa) throws Exception {
         return pessoaService.getById(idPessoa);
     }
 
-    @ApiOperation(value = "Lista todos os registros de pessoa")
+    @ApiOperation(value = "Lista todos os registros de pessoa e seus dados pessoais")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Retorna uma lista de pessoas"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção")
@@ -59,7 +56,7 @@ public class PessoaController {
         return pessoaService.list();
     }
 
-    @ApiOperation(value = "Lista informações da pessoa, passando o nome dela")
+    @ApiOperation(value = "Lista informações e dados pessoais da pessoa, passando o nome dela")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Retorna informações da pessoa"),
             @ApiResponse(code = 400, message = "Pessoa não encontrada"),
@@ -94,6 +91,5 @@ public class PessoaController {
     @DeleteMapping("/{idPessoa}")
     public void delete(@PathVariable("idPessoa") Integer id) throws Exception {
         pessoaService.delete(id);
-        log.info("Pessoa deletada com sucesso!");
     }
 }

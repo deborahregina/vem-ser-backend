@@ -2,6 +2,7 @@ package com.dbc.pessoaapi.repository;
 
 import com.dbc.pessoaapi.client.DadosPessoaisClient;
 import com.dbc.pessoaapi.dto.PessoaDTO;
+import com.dbc.pessoaapi.entity.PessoaDadosPessoaisEntity;
 import com.dbc.pessoaapi.entity.PessoaEntity;
 import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,6 @@ import java.util.stream.Collectors;
 public class PessoaRepository {
     private static List<PessoaEntity> listaPessoas = new ArrayList<>();
     private AtomicInteger COUNTER = new AtomicInteger();
-    @Autowired
-    private DadosPessoaisClient dadosPessoaisClient;
 
 
 
@@ -56,9 +55,40 @@ public class PessoaRepository {
         return pessoaRecuperada;
     }
 
+    public PessoaEntity update(String cpf,
+                               PessoaEntity pessoaAtualizar) throws RegraDeNegocioException {
+        PessoaEntity pessoaRecuperada = listaPessoas.stream()
+                .filter(pessoa -> pessoa.getCpf().equals(cpf))
+                .findFirst()
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não econtrada"));
+        pessoaRecuperada.setNome(pessoaAtualizar.getNome());
+        pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
+        pessoaRecuperada.setEmail(pessoaAtualizar.getEmail());
+        return pessoaRecuperada;
+    }
+
+    public PessoaEntity update(PessoaEntity pessoaAtualizar) throws RegraDeNegocioException {
+        PessoaEntity pessoaRecuperada = listaPessoas.stream()
+                .filter(pessoa -> pessoa.getCpf().equals(pessoaAtualizar.getCpf()))
+                .findFirst()
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não econtrada"));
+        pessoaRecuperada.setNome(pessoaAtualizar.getNome());
+        pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
+        pessoaRecuperada.setEmail(pessoaAtualizar.getEmail());
+        return pessoaRecuperada;
+    }
+
     public void delete(Integer id) throws RegraDeNegocioException {
         PessoaEntity pessoaRecuperada = listaPessoas.stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não econtrada"));
+        listaPessoas.remove(pessoaRecuperada);
+    }
+
+    public void delete(String cpf) throws RegraDeNegocioException {
+        PessoaEntity pessoaRecuperada = listaPessoas.stream()
+                .filter(pessoa -> pessoa.getCpf().equals(cpf))
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não econtrada"));
         listaPessoas.remove(pessoaRecuperada);

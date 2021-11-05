@@ -1,12 +1,13 @@
 package com.dbc.pessoaapi.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class PessoaCreateDTO {
     @NotEmpty
@@ -29,5 +30,7 @@ public class PessoaCreateDTO {
     @ApiModelProperty(value = "E-mail")
     private String email;
 
+    @NotNull
+    @Past
     private DadosPessoaisDTO dadosPessoaisDTO;
 }

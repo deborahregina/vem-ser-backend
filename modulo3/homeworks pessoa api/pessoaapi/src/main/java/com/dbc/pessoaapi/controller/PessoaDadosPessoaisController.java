@@ -55,7 +55,7 @@ public class PessoaDadosPessoaisController {
     public PessoaDadosPessoaisDTO update(@PathVariable("cpf") String cpf,
                             @RequestBody @Valid PessoaDadosPessoaisDTO pessoaDadosPessoaisDTO) throws Exception {
 
-        PessoaDadosPessoaisDTO pessoaDadosPessoaisDTOCriado = pessoasDadosPessoaisService.update(pessoaDadosPessoaisDTO);
+        PessoaDadosPessoaisDTO pessoaDadosPessoaisDTOCriado = pessoasDadosPessoaisService.update(cpf, pessoaDadosPessoaisDTO);
         return pessoaDadosPessoaisDTOCriado;
     }
 

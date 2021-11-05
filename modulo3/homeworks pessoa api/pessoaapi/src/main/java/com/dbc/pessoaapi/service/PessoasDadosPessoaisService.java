@@ -11,6 +11,7 @@ import com.dbc.pessoaapi.repository.PessoaDadosPessoaisRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class PessoasDadosPessoaisService {
 
@@ -45,15 +47,14 @@ public class PessoasDadosPessoaisService {
                 .collect(Collectors.toList());
     }
 
-    public PessoaDadosPessoaisDTO update(PessoaDadosPessoaisDTO pessoaDadosPessoaisDTO) throws MessagingException, TemplateException, RegraDeNegocioException, IOException {
+    public PessoaDadosPessoaisDTO update(String cpf, PessoaDadosPessoaisDTO pessoaDadosPessoaisDTO) throws MessagingException, TemplateException, RegraDeNegocioException, IOException {
 
         DadosPessoaisDTO dadosPessoaisNovoDTO = objectMapper.convertValue(pessoaDadosPessoaisDTO, DadosPessoaisDTO.class);
         PessoaCreateDTO pessoaCreateDTO = objectMapper.convertValue(pessoaDadosPessoaisDTO, PessoaCreateDTO.class);
 
-        pessoaService.update(pessoaCreateDTO);
-        dadosPessoaisService.update(dadosPessoaisNovoDTO);
+        pessoaService.update(cpf, pessoaCreateDTO);
+        dadosPessoaisService.update(cpf, dadosPessoaisNovoDTO);
         PessoaDadosPessoaisEntity pessoaEntity = objectMapper.convertValue(pessoaDadosPessoaisDTO, PessoaDadosPessoaisEntity.class);
-        pessoaDadosPessoaisRepository.update(pessoaDadosPessoaisDTO);
         PessoaDadosPessoaisDTO pessoaDadosDTO = objectMapper.convertValue(pessoaEntity, PessoaDadosPessoaisDTO.class);
         return pessoaDadosDTO;
     }

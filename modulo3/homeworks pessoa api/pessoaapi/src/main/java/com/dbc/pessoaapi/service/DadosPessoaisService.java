@@ -41,8 +41,8 @@ public class DadosPessoaisService {
         return dadosPessoaisClient.delete(cpf);
     }
 
-    public DadosPessoaisDTO update(DadosPessoaisDTO dadosPessoaisDTO) {
-        return dadosPessoaisClient.update(dadosPessoaisDTO.getCpf());
+    public DadosPessoaisDTO update(String cpf, DadosPessoaisDTO dadosPessoaisDTO) {
+        return dadosPessoaisClient.update(cpf, dadosPessoaisDTO);
     }
 
 

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cc334171-0669-4347-aa2c-f761adf8073c" name="Changes" comment="pessoa api" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectId" id="203U6YK0X82uzhkonzsc3s1luQQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Deborah\IdeaProjects\vem-ser-backend\modulo3\homeworks pessoa api\pessoaapi\src\main\resources\templates" />
+      <recent name="C:\Users\Deborah\IdeaProjects\vem-ser-backend\modulo3\homeworks pessoa api\pessoaapi\src\main\java\com\dbc\pessoaapi\exceptions" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.dbc.pessoaapi.service" />
+      <recent name="com.dbc.pessoaapi.repository" />
+      <recent name="com.dbc.pessoaapi.controller" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="PessoaApiApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.dbc.pessoaapi.PessoaApiApplication" />
+      <module name="pessoaapi" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dbc.pessoaapi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.PessoaApiApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cc334171-0669-4347-aa2c-f761adf8073c" name="Changes" comment="" />
+      <created>1635272591676</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1635272591676</updated>
+    </task>
+    <task id="LOCAL-00001" summary="mudanca da validação de idPessoa de contato para contatorepository">
+      <created>1635526806945</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1635526806945</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Homework pessoa + end + contato, DTOs implementados para pessoa, endereco e contato. Alterações em service e controller necessárias realizadas. Testado no postman todas as requisições http.">
+      <created>1635615372601</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1635615372601</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Homework EMAILS">
+      <created>1635799787692</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1635799787692</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Homework EMAILS">
+      <created>1635799972454</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1635799972454</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Homework EMAILS">
+      <created>1635800861170</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1635800861170</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Homework springfox">
+      <created>1635971624006</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1635971624006</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Tentativa desafio">
+      <created>1636068860917</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1636068860918</updated>
+    </task>
+    <task id="LOCAL-00008" summary="desafio">
+      <created>1636122252722</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1636122252722</updated>
+    </task>
+    <task id="LOCAL-00009" summary="desafio funcionando">
+      <created>1636126311772</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1636126311772</updated>
+    </task>
+    <task id="LOCAL-00010" summary="desafio funcionando">
+      <created>1636126477654</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1636126477654</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="mudanca da validação de idPessoa de contato para contatorepository" />
+    <MESSAGE value="Homework pessoa + end + contato, DTOs implementados para pessoa, endereco e contato. Alterações em service e controller necessárias realizadas. Testado no postman todas as requisições http." />
+    <MESSAGE value="Homework EMAILS" />
+    <MESSAGE value="Homework springfox" />
+    <MESSAGE value="Tentativa desafio" />
+    <MESSAGE value="desafio" />
+    <MESSAGE value="desafio funcionando" />
+    <MESSAGE value="pessoa api" />
+    <option name="LAST_COMMIT_MESSAGE" value="pessoa api" />
+  </component>
+</project>

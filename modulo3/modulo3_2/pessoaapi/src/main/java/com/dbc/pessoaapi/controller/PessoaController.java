@@ -2,16 +2,22 @@ package com.dbc.pessoaapi.controller;
 
 import com.dbc.pessoaapi.dto.PessoaCreateDTO;
 import com.dbc.pessoaapi.dto.PessoaDTO;
+import com.dbc.pessoaapi.entity.PessoaEntity;
+import com.dbc.pessoaapi.repository.PessoaRepository;
 import com.dbc.pessoaapi.service.PessoaService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -22,6 +28,7 @@ import java.util.List;
 public class PessoaController {
 
     private final PessoaService pessoaService;
+    private final PessoaRepository pessoaRepository;
 
     @ApiOperation(value = "Cria uma nova pessoa")
     @ApiResponses(value = {
@@ -77,4 +84,20 @@ public class PessoaController {
     public void delete(@PathVariable("idPessoa") Integer id) throws Exception {
         pessoaService.delete(id);
     }
+
+    @GetMapping("/nome")
+    public List<PessoaEntity> findbyname(@RequestParam("nome") String nome) {
+        return pessoaRepository.findByNomeContainingIgnoreCase(nome);
+    }
+
+    @GetMapping("/cpf")
+    public PessoaEntity findbyCpf(@RequestParam("cpf") String cpf) {
+        return pessoaRepository.findByCpf(cpf);
+    }
+
+    @GetMapping("/find-by-data")
+    public List<PessoaEntity> betweenData(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
+            return pessoaRepository.findByDataNascimentoBetween(inicio,fim);
+    }
+
 }

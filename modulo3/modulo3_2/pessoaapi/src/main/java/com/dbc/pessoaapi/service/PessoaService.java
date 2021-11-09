@@ -30,22 +30,21 @@ public class PessoaService {
         return pessoaDTO;
     }
 
-    public List<PessoaDTO> list(){
+    public List<PessoaDTO> list() {
         return pessoaRepository.findAll().stream()
                 .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
                 .collect(Collectors.toList());
     }
 
     public PessoaDTO update(Integer id,
-                               PessoaCreateDTO pessoaCreateDTO) throws RegraDeNegocioException, MessagingException, TemplateException, IOException {
+                            PessoaCreateDTO pessoaCreateDTO) throws RegraDeNegocioException, MessagingException, TemplateException, IOException {
         findById(id);
-        PessoaEntity pessoa = objectMapper.convertValue(pessoaCreateDTO,PessoaEntity.class);
+        PessoaEntity pessoa = objectMapper.convertValue(pessoaCreateDTO, PessoaEntity.class);
         pessoa.setIdPessoa(id);
         PessoaEntity update = pessoaRepository.save(pessoa);
         PessoaDTO pessoaDTO = objectMapper.convertValue(update, PessoaDTO.class);
         return pessoaDTO;
     }
-
 
 
     public void delete(Integer id) throws Exception {
@@ -65,7 +64,5 @@ public class PessoaService {
         PessoaDTO dto = objectMapper.convertValue(entity, PessoaDTO.class);
         return dto;
     }
-
-
 
 }

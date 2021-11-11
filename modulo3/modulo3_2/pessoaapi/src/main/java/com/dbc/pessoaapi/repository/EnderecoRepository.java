@@ -7,6 +7,8 @@ import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.service.PessoaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -38,5 +40,9 @@ public interface EnderecoRepository extends JpaRepository<EnderecoEntity,Integer
     @Query(value = "SELECT * FROM ENDERECO_PESSOA e WHERE e.complemento is null", nativeQuery = true)
     List<EnderecoEntity> findEnderecoComplementoNull();
 
+    @Query("select p " +
+            " from ENDERECO_PESSOA p " +
+            "where upper(pais) = :pais ")
+    Page<EnderecoEntity> findByPaisJPQL(String pais, Pageable pageable);
 
 }

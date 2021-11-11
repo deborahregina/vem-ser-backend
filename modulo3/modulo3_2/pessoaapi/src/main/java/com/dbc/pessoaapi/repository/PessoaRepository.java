@@ -32,4 +32,6 @@ public interface PessoaRepository extends JpaRepository<PessoaEntity, Integer> {
     List<PessoaEntity> findPessoasComEndNull();
 
 
+
+
 }

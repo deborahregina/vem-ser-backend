@@ -1,9 +1,11 @@
 package com.dbc.pessoaapi.dto;
 
+import com.dbc.pessoaapi.entity.TipoContato;
 import com.dbc.pessoaapi.entity.TipoEndereco;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.persistence.Enumerated;
 import javax.validation.constraints.*;
 
 @Data
@@ -14,7 +16,7 @@ public class EnderecoCreateDTO {
 
     @NotNull
     @ApiModelProperty(value = "Tipo de endereço \n[0:Residencial 1:Comercial]")
-    private Integer tipoEndereco;
+    private TipoEndereco tipoEndereco;
 
 
     @NotBlank

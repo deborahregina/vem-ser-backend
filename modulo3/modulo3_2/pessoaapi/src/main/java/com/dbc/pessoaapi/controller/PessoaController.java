@@ -1,9 +1,6 @@
 package com.dbc.pessoaapi.controller;
 
-import com.dbc.pessoaapi.dto.PessoaComContatoDTO;
-import com.dbc.pessoaapi.dto.PessoaComEnderecoDTO;
-import com.dbc.pessoaapi.dto.PessoaCreateDTO;
-import com.dbc.pessoaapi.dto.PessoaDTO;
+import com.dbc.pessoaapi.dto.*;
 import com.dbc.pessoaapi.entity.PessoaEntity;
 import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.repository.PessoaRepository;
@@ -134,6 +131,19 @@ public class PessoaController {
     @GetMapping("/find-by-end-not-null")
     public List<PessoaEntity> listaPessoasComEndereco() {
         return pessoaRepository.findByEnderecoIsNotNull();
+    }
+
+    @ApiOperation(value = "Lista de pessoas com endereço null (nativo)")
+    @GetMapping("/find-pessoas-endereco-null")
+    public List<PessoaEntity> findPessoasComEndNull() {
+        return pessoaRepository.findPessoasComEndNull();
+    }
+
+    @ApiOperation(value = "Lista Pessoa(s) com todos os dados")
+    @GetMapping("/lista-pessoa-completa")
+    public List<PessoaComTodosDadosDTO> listaPessoaCompleta(@RequestParam(required = false) Integer idPessoa) throws RegraDeNegocioException {
+        return pessoaService.listaPessoaCompleta(idPessoa);
+
     }
 
 

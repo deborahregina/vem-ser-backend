@@ -33,9 +33,8 @@ public class ContatoController {
     }
 
     @PostMapping("/{idPessoa}")
-    public ContatoDTO create(@PathVariable("idPessoa") Integer idPessoa,
-                             @RequestBody ContatoCreateDTO contatoCreateDTO) throws Exception {
-        return contatoService.create(contatoCreateDTO, idPessoa);
+    public ContatoDTO create( @PathVariable("idPessoa") Integer idPessoa, @RequestBody ContatoCreateDTO contatoCreateDTO) throws Exception {
+        return contatoService.create(idPessoa, contatoCreateDTO);
     }
 
     @PutMapping("/{id}")
@@ -51,6 +50,7 @@ public class ContatoController {
 
 
     // {{url}}/contato/1/contato
+    @ApiOperation(value = "Lista contatos id contato")
     @GetMapping("/{idContato}/contato")
     public ContatoDTO listByIdContato(@PathVariable("idContato") Integer idContato) throws Exception {
         return contatoService.getById(idContato);

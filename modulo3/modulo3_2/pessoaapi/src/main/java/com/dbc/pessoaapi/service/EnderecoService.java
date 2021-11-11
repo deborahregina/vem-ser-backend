@@ -9,6 +9,7 @@ import com.dbc.pessoaapi.entity.EnderecoEntity;
 import com.dbc.pessoaapi.entity.PessoaEntity;
 import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.repository.EnderecoRepository;
+import com.dbc.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.RequiredArgsConstructor;
@@ -25,12 +26,14 @@ public class EnderecoService {
 
     private final EnderecoRepository enderecoRepository;
     private final ObjectMapper objectMapper;
+    private final PessoaRepository pessoaRepository;
 
     public EnderecoDTO create(EnderecoCreateDTO enderecoCreateDTO) throws RegraDeNegocioException {
-
-        EnderecoEntity enderecoCriado = objectMapper.convertValue(enderecoCreateDTO, EnderecoEntity.class);
-        enderecoRepository.save(enderecoCriado);
+        pessoaRepository.getById(enderecoCreateDTO.getIdPessoa());
+        EnderecoEntity enderecoEntity = objectMapper.convertValue(enderecoCreateDTO, EnderecoEntity.class);
+        EnderecoEntity enderecoCriado = enderecoRepository.save(enderecoEntity);
         EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoCriado, EnderecoDTO.class);
+        enderecoDTO.setIdPessoa(enderecoCreateDTO.getIdPessoa());
         return enderecoDTO;
     }
 
@@ -41,17 +44,14 @@ public class EnderecoService {
     }
 
 
-    public EnderecoDTO update(Integer idEndereco,
-                                 EnderecoCreateDTO enderecoAtualizar) throws Exception {
-
-        findById(idEndereco);
-        EnderecoEntity endereco = objectMapper.convertValue(enderecoAtualizar,EnderecoEntity.class);
-        endereco.setIdEndereco(idEndereco);
-        EnderecoEntity update = enderecoRepository.save(endereco);
-        EnderecoDTO enderecoDTO = objectMapper.convertValue(update, EnderecoDTO.class);
-        return enderecoDTO;
-
+    public EnderecoDTO update(Integer idEndereco, EnderecoCreateDTO enderecoCreateDTO) throws RegraDeNegocioException {
+        pessoaRepository.getById(enderecoCreateDTO.getIdPessoa());
+        EnderecoEntity enderecoEntity = objectMapper.convertValue(enderecoCreateDTO, EnderecoEntity.class);
+        enderecoEntity.setIdEndereco(idEndereco);
+        EnderecoEntity enderecoAtualizar = enderecoRepository.save(enderecoEntity);
+        return objectMapper.convertValue(enderecoAtualizar, EnderecoDTO.class);
     }
+
 
     public void delete(Integer id) throws Exception {
         EnderecoEntity endereco = findById(id);

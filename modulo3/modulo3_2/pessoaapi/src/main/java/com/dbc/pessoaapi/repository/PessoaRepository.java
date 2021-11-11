@@ -24,13 +24,12 @@ public interface PessoaRepository extends JpaRepository<PessoaEntity, Integer> {
 
     @Query("select p " +
             " from PESSOA p " +
-            "left join p.enderecos e")
+            "inner join p.enderecos e")
     List<PessoaEntity> findByEnderecoIsNotNull();
 
 
-    @Query(value = "SELECT * " +
-            "    FROM PESSOA p " +
-            "    LEFT JOIN PESSOA_X_PESSOA_ENDERECO pxpe ON (pxpe.ID_PESSOA IS null)", nativeQuery = true)
-    List<PessoaEntity> findEnderecoComplementoNull();
+    @Query(value = "SELECT * FROM PESSOA p LEFT JOIN PESSOA_X_PESSOA_ENDERECO pxpe ON (p.ID_PESSOA = pxpe.ID_PESSOA) WHERE PXPE.ID_PESSOA IS NULL" , nativeQuery = true)
+    List<PessoaEntity> findPessoasComEndNull();
+
 
 }

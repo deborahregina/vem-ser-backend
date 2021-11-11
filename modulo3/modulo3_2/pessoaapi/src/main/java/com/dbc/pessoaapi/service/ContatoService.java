@@ -9,6 +9,7 @@ import com.dbc.pessoaapi.entity.PessoaEntity;
 import com.dbc.pessoaapi.entity.TipoContato;
 import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.repository.ContatoRepository;
+import com.dbc.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +28,16 @@ public class ContatoService {
 
     private final ContatoRepository contatoRepository;
     private final ObjectMapper objectMapper;
+    private final PessoaRepository pessoaRepository;
 
 
-    public ContatoDTO create(ContatoCreateDTO contatoCreateDTO, Integer idPessoa) throws RegraDeNegocioException {
-        ContatoEntity contatoCriado = objectMapper.convertValue(contatoCreateDTO, ContatoEntity.class);
-        contatoRepository.save(contatoCriado);
-        ContatoDTO contatoDTO = objectMapper.convertValue(contatoCriado, ContatoDTO.class);
-        return contatoDTO;
+
+    public ContatoDTO create(Integer idPessoa, ContatoCreateDTO contatoCreateDTO) throws RegraDeNegocioException {
+        PessoaEntity pessoa = pessoaRepository.getById(idPessoa);
+        ContatoEntity contatoEntity = objectMapper.convertValue(contatoCreateDTO, ContatoEntity.class);
+        contatoEntity.setPessoaEntity(pessoa);
+        ContatoEntity contatoCriado = contatoRepository.save(contatoEntity);
+        return objectMapper.convertValue(contatoCriado, ContatoDTO.class);
     }
 
     public List<ContatoDTO> list(){
@@ -44,18 +48,14 @@ public class ContatoService {
 
     }
 
-    public ContatoDTO update(Integer idContato,
-                                ContatoCreateDTO contatoCreateDTO) throws RegraDeNegocioException {
-
+    public ContatoDTO update(Integer idContato, ContatoCreateDTO contatoCreateDTOAtualizar) throws RegraDeNegocioException{
         findById(idContato);
-        ContatoEntity contato = objectMapper.convertValue(contatoCreateDTO,ContatoEntity.class);
-        contato.setIdContato(idContato);
-        ContatoEntity update = contatoRepository.save(contato);
-        ContatoDTO contatoDTO = objectMapper.convertValue(update, ContatoDTO.class);
-
-        return contatoDTO;
-
+        ContatoEntity contatoEntity = objectMapper.convertValue(contatoCreateDTOAtualizar, ContatoEntity.class);
+        contatoEntity.setIdContato(idContato);
+        ContatoEntity contatoEntityAtualizar = contatoRepository.save(contatoEntity);
+        return objectMapper.convertValue(contatoEntityAtualizar, ContatoDTO.class);
     }
+
 
     public void delete(Integer id) throws RegraDeNegocioException {
         ContatoEntity contato = findById(id);

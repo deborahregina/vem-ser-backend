@@ -10,8 +10,6 @@ import javax.validation.constraints.NotNull;
 @Data
 public class EnderecoDTO extends EnderecoCreateDTO {
 
-    @NotNull
-    private Integer idPessoa;
 
     @ApiModelProperty(value = "ID")
     private Integer idEndereco;

@@ -96,10 +96,10 @@ public class EnderecoController {
        return enderecoRepository.procurarPorPais(pais.toUpperCase());
     }
 
-    @ApiOperation(value = "Lista Enderecos por cidade e pais (nativo)")
+    @ApiOperation(value = "Lista Enderecos por cidade ou pais (nativo)")
     @GetMapping("/procura-por-cidade-pais-nativo")
-    public List<EnderecoEntity> findEnderecoCidadePais(@RequestParam String cidade, @RequestParam String pais) {
-        return enderecoRepository.findEnderecoCidadePais(cidade,pais);
+    public List<EnderecoEntity> findEnderecoCidadePais(@RequestParam String buscaPorCidadeOuPais) {
+        return enderecoRepository.findEnderecoCidadePais(buscaPorCidadeOuPais);
     }
 
     @ApiOperation(value = "Lista endereços com complemento null")

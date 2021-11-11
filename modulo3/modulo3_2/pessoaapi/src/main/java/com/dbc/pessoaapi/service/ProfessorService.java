@@ -9,6 +9,7 @@ import com.dbc.pessoaapi.repository.ProfessorRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProfessorService {
 
     private final ProfessorRepository professorRepository;

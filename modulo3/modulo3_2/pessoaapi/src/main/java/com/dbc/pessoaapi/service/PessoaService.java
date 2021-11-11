@@ -8,6 +8,7 @@ import com.dbc.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PessoaService {
 
     private final PessoaRepository pessoaRepository;
@@ -191,6 +193,64 @@ public class PessoaService {
 
         listaPessoaComContato.add(pessoaComContatoDTO);
         return listaPessoaComContato;
+
+    }
+
+    public List<PessoaComTodosDadosDTO> listaPessoaCompleta(Integer idPessoa) throws RegraDeNegocioException {
+
+        List<PessoaEntity> listaPessoasEntity = pessoaRepository.findAll();
+        List<PessoaComTodosDadosDTO> listaPessoaComDados = new ArrayList<>();
+
+        if (idPessoa == null) {
+
+            for(PessoaEntity pessoa: listaPessoasEntity) {
+
+                PessoaComTodosDadosDTO pessoaConv = objectMapper.convertValue(pessoa,PessoaComTodosDadosDTO.class);
+                pessoaConv.setContatos(pessoa.getContatos().stream().
+                        map(contatoEntity -> {
+
+                            ContatoDTO contatoDTO = objectMapper.convertValue(contatoEntity, ContatoDTO.class);
+                            contatoDTO.setIdPessoa(pessoa.getIdPessoa());
+                            return contatoDTO;
+
+                        }).collect(Collectors.toSet()));
+
+                pessoaConv.setEnderecos(pessoa.getEnderecos().stream().
+                        map(enderecoEntity -> {
+
+                            EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);
+                            enderecoDTO.setIdPessoa(pessoa.getIdPessoa());
+                            return enderecoDTO;
+
+                        }).collect(Collectors.toSet()));
+
+                listaPessoaComDados.add(pessoaConv);
+            }
+            return listaPessoaComDados;
+        }
+        PessoaEntity pessoaProdurada = findById(idPessoa);
+
+        PessoaComTodosDadosDTO pessoaComTodosDadosDTO = objectMapper.convertValue(pessoaProdurada, PessoaComTodosDadosDTO.class);
+        pessoaComTodosDadosDTO.setContatos(pessoaProdurada.getContatos().stream().
+                map(contatoEntity -> {
+
+                    ContatoDTO contatoDTO = objectMapper.convertValue(contatoEntity, ContatoDTO.class);
+                    contatoDTO.setIdPessoa(idPessoa);
+                    return contatoDTO;
+
+                }).collect(Collectors.toSet()));
+
+        pessoaComTodosDadosDTO.setEnderecos(pessoaProdurada.getEnderecos().stream().
+                map(enderecoEntity -> {
+
+                    EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoEntity, EnderecoDTO.class);
+                    enderecoDTO.setIdPessoa(idPessoa);
+                    return enderecoDTO;
+
+                }).collect(Collectors.toSet()));
+
+        listaPessoaComDados.add(pessoaComTodosDadosDTO);
+        return listaPessoaComDados;
 
     }
 }

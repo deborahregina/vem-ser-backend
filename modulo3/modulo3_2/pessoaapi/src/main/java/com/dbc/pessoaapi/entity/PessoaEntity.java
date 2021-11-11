@@ -1,17 +1,16 @@
 package com.dbc.pessoaapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity(name = "PESSOA")
 public class PessoaEntity {
 
@@ -33,5 +32,13 @@ public class PessoaEntity {
     @Column(name = "email")
     private String email;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ContatoEntity> contatos;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "Pessoa_X_Pessoa_Endereco", joinColumns = @JoinColumn(name = "id_pessoa"), inverseJoinColumns = @JoinColumn(name = "id_endereco"))
+    private Set<EnderecoEntity> enderecos;
 
 }

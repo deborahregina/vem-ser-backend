@@ -31,7 +31,6 @@ public class ContatoService {
 
     public ContatoDTO create(ContatoCreateDTO contatoCreateDTO, Integer idPessoa) throws RegraDeNegocioException {
         ContatoEntity contatoCriado = objectMapper.convertValue(contatoCreateDTO, ContatoEntity.class);
-        contatoCriado.setIdPessoa(idPessoa);
         contatoRepository.save(contatoCriado);
         ContatoDTO contatoDTO = objectMapper.convertValue(contatoCriado, ContatoDTO.class);
         return contatoDTO;

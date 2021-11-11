@@ -20,7 +20,7 @@ public class ContatoCreateDTO {
     @Max(1)
     @Min(0)
     @ApiModelProperty(value = "Tipo de contato \n[0:Residencial 1:Comercial]")
-    private Integer tipoContato;
+    private Integer tipo;
 
     @NotBlank
     @Size(min = 0, max = 13)

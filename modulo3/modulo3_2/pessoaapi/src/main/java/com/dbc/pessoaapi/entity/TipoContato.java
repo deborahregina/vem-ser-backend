@@ -4,13 +4,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.*;
 
 import java.util.Arrays;
-@Getter
+
 public enum TipoContato {
     RESIDENCIAL(1),
     COMERCIAL(2);
 
 
-    @JsonValue
     public int toValue() {
         return ordinal();
     }

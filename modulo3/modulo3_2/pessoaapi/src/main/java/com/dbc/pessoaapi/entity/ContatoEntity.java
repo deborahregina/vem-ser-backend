@@ -1,5 +1,6 @@
 package com.dbc.pessoaapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,9 +11,6 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity(name = "CONTATO")
 public class ContatoEntity {
 
@@ -22,17 +20,20 @@ public class ContatoEntity {
     @Column(name = "id_contato")
     private Integer idContato;
 
-    @Column(name = "id_pessoa")
-    private Integer idPessoa;
-
     @Column(name = "tipo")
-    @Enumerated(EnumType.ORDINAL)
-    private TipoContato tipoContato;
+    @Enumerated()
+    private TipoContato tipo;
 
     @Column(name = "numero")
     private String numero;
 
     @Column(name = "descricao")
     private String descricao;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "id_pessoa", referencedColumnName = "id_pessoa")
+    private PessoaEntity pessoa;
+
 
 }

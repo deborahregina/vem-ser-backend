@@ -10,6 +10,9 @@ import javax.validation.constraints.*;
 public class EnderecoCreateDTO {
 
     @NotNull
+    private Integer idPessoa;
+
+    @NotNull
     @ApiModelProperty(value = "Tipo de endereço \n[0:Residencial 1:Comercial]")
     private Integer tipoEndereco;
 

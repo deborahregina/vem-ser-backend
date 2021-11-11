@@ -16,6 +16,9 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 public class ContatoDTO extends ContatoCreateDTO {
 
+    @NotNull
+    private Integer idPessoa;
+
     @ApiModelProperty(value = "ID do contato")
     private Integer idContato;
 

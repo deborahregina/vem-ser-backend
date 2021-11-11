@@ -9,9 +9,6 @@ import javax.persistence.Entity;
 
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity(name = "PROFESSOR")
 public class ProfessorEntity {
 

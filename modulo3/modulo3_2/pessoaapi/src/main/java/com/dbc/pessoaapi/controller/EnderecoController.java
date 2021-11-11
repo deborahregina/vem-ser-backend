@@ -4,6 +4,7 @@ import com.dbc.pessoaapi.dto.EnderecoCreateDTO;
 import com.dbc.pessoaapi.dto.EnderecoDTO;
 import com.dbc.pessoaapi.entity.EnderecoEntity;
 import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
+import com.dbc.pessoaapi.repository.EnderecoRepository;
 import com.dbc.pessoaapi.service.EnderecoService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/endereco")
@@ -24,6 +26,7 @@ import java.util.List;
 public class EnderecoController {
 
     private final EnderecoService enderecoService;
+    private final EnderecoRepository enderecoRepository;
 
     @ApiOperation(value = "Cria uma novo endereço")
     @ApiResponses(value = {
@@ -86,4 +89,28 @@ public class EnderecoController {
         enderecoService.delete(id);
         log.info("Endereco deletado com sucesso!");
     }
+
+    @ApiOperation(value = "Lista endereços por pais")
+    @GetMapping("/procura-por-pais")
+    public List<EnderecoEntity> enderecosPorPais(@RequestParam String pais) {
+       return enderecoRepository.procurarPorPais(pais.toUpperCase());
+    }
+
+    @ApiOperation(value = "Lista Enderecos por cidade e pais (nativo)")
+    @GetMapping("/procura-por-cidade-pais-nativo")
+    public List<EnderecoEntity> findEnderecoCidadePais(@RequestParam String cidade, @RequestParam String pais) {
+        return enderecoRepository.findEnderecoCidadePais(cidade,pais);
+    }
+
+    @ApiOperation(value = "Lista endereços com complemento null")
+    @GetMapping("/procura-por-complemento-null")
+    public List<EnderecoEntity> findEnderecoComplementoNull() {
+        return enderecoRepository.findEnderecoComplementoNull();
+    }
+
+    @ApiOperation(value = "Lista enderecos por id pessoa")
+    @GetMapping("/procura-por-idPessoa")
+    public List<EnderecoEntity> procuraPorIdPessoa(@RequestParam Integer idPessoa) {
+        return enderecoRepository.procurarPorIdPessoa(idPessoa);
+   }
 }

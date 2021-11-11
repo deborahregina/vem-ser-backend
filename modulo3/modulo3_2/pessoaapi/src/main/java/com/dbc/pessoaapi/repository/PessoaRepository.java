@@ -22,7 +22,7 @@ public interface PessoaRepository extends JpaRepository<PessoaEntity, Integer> {
     @Query("select p from PESSOA p where p.dataNascimento BETWEEN :inicio AND :fim" )
     List<PessoaEntity> findByDataNascimentoBetweenQuery(LocalDate inicio, LocalDate fim);
 
-    @Query("select p " +
+    @Query("select distinct p " +
             " from PESSOA p " +
             "inner join p.enderecos e")
     List<PessoaEntity> findByEnderecoIsNotNull();

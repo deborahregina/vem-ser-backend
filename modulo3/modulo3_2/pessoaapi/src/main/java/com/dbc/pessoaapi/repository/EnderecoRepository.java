@@ -32,7 +32,7 @@ public interface EnderecoRepository extends JpaRepository<EnderecoEntity,Integer
 
     @Query(value = "SELECT *\n" +
             " FROM ENDERECO_PESSOA ep \n" +
-            " WHERE (cidade like :cidade OR pais like :pais )", nativeQuery = true)
+            " WHERE (upper(cidade) like upper(:cidade) OR upper(pais) like upper(:pais) )", nativeQuery = true)
     List<EnderecoEntity> findEnderecoCidadePais(String cidade, String pais);
 
     @Query(value = "SELECT * FROM ENDERECO_PESSOA e WHERE e.complemento is null", nativeQuery = true)

@@ -26,6 +26,8 @@ public class SpringFoxConfig {
     public Docket api() {
 
         return new Docket(DocumentationType.SWAGGER_2)
+                .securityContexts(Arrays.asList(securityContext()))
+                .securitySchemes(Arrays.asList(apiKey()))
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
                 .paths(PathSelectors.any())
@@ -38,13 +40,9 @@ public class SpringFoxConfig {
                         .version("2.0.0")
                         .license("Apache 2.0")
                         .contact(new Contact("Deborah", "www.dbccompany.com.br", "deborah.regina@dbccompany.com"))
-                        .build())
-                .securityContexts(Arrays.asList(securityContext()))
-                .securitySchemes(Arrays.asList(apiKey()))
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build();
+                        .build());
+
+
     }
 
     public static final String AUTHORIZATION_HEADER = "Authorization";

@@ -1,6 +1,8 @@
 package com.dbc.pessoaapi.controller;
 
 import com.dbc.pessoaapi.dto.LoginDTO;
+import com.dbc.pessoaapi.dto.UsuarioCreateDTO;
+import com.dbc.pessoaapi.dto.UsuarioDTO;
 import com.dbc.pessoaapi.entity.UsuarioEntity;
 import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.security.TokenService;
@@ -25,6 +27,8 @@ import java.util.Optional;
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
+    private final UsuarioService usuarioService;
+
     @PostMapping
     public String auth(@RequestBody @Valid LoginDTO loginDTO) {
         UsernamePasswordAuthenticationToken user =
@@ -38,4 +42,10 @@ public class AuthController {
         String token = tokenService.generateToken((UsuarioEntity) authenticate.getPrincipal());
         return token;
     }
+
+    @PostMapping("/create")
+    public UsuarioDTO postUsuario(@RequestBody UsuarioCreateDTO usuarioCreateDTO) {
+        return usuarioService.create(usuarioCreateDTO);
+    }
 }
+

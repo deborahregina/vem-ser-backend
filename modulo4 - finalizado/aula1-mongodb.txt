@@ -1,0 +1,35 @@
+use vemserdbc
+'switched to db vemserdbc'
+
+db.clientes.insertOne({nome: "Deborah Silveira", contatos: {email: "deborah@gmail.com", celular: "12353425"} })
+
+{ acknowledged: true,
+  insertedId: ObjectId("619cbb3866397e97da48d8b8") }
+db.clientes.insertOne({nome: "Maicon Gerardi", contatos: {email: "maicon@gmail.com", celular: "9012353425"} })
+{ acknowledged: true,
+  insertedId: ObjectId("619cbb5266397e97da48d8b9") }
+
+db.clientes.insertOne({nome: "Adriele Beatriz", contatos: {email: "AdrieleBeatriz@gmail.com", celular: "12353425"} })
+{ acknowledged: true,
+  insertedId: ObjectId("619cbb6766397e97da48d8ba") }
+
+db.clientes.find()
+
+{ _id: ObjectId("619cbb3866397e97da48d8b8"),
+  nome: 'Deborah Silveira',
+  contatos: { email: 'deborah@gmail.com', celular: '12353425' } }
+{ _id: ObjectId("619cbb5266397e97da48d8b9"),
+  nome: 'Maicon Gerardi',
+  contatos: { email: 'maicon@gmail.com', celular: '9012353425' } }
+{ _id: ObjectId("619cbb6766397e97da48d8ba"),
+  nome: 'Adriele Beatriz',
+  contatos: { email: 'AdrieleBeatriz@gmail.com', celular: '12353425' } }
+
+db.clientes.find({"nome": "Deborah Silveira"})
+{ _id: ObjectId("619cbb3866397e97da48d8b8"),
+  nome: 'Deborah Silveira',
+  contatos: { email: 'deborah@gmail.com', celular: '12353425' } }
+
+
+db.clientes.deleteOne({_id: ObjectId('619cbb3866397e97da48d8b8')})
+{ acknowledged: true, deletedCount: 1 }

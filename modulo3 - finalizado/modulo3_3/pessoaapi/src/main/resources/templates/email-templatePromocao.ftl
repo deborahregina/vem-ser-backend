@@ -22,10 +22,13 @@
                             <br> Olá ${nomePessoa},</b> <br>
                         </div>
                         <div>
-                            <br>Você perdeu o acesso ao nosso sistema
-                            <br>Qualquer dúvida é só contatar o suporte pelo e-mail: ${email}
-                            <br>Att,
-                            <br>Sistema.
+                            <br>Selecionamos algumas das nossas super promoções de natal na nossa
+                            <br>plataforma especialmente para você.
+                            <br>- Na compra de 1 CDs do Chitãozinho e Xororó, ganhe 1 do Milionário e José Rico
+                            <br>- Na locação de um filme em VHS, a outra locação é grátis.
+                            <br>- Fita de Super Nintendo com 50% de desconto
+                            <br>Aproveite...
+                            <br>Magazine Oldschool...
                             <br>
                         </div>
                     </td>

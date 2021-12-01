@@ -22,10 +22,11 @@
                             <br> Olá ${nomePessoa},</b> <br>
                         </div>
                         <div>
-                            <br>Seus dados foram atualizados no nosso sistema
-                            <br>Qualquer dúvida é só contatar o suporte pelo e-mail: ${email} <br>
-                            <br>Att, <br>
-                            <br>Sistema. <br>
+                            <br>Estamos muito felizez que você está no nosso sistema.
+                            <br>Para que possamos enviá-los um brinde exclusivo, adicione<br>
+                            <br>ou atualize o endereço do seu cadastro.<br>
+                            <br>Muito obrigado.
+                            <br>Sistema de Pessoas
                             <br>
                         </div>
                     </td>

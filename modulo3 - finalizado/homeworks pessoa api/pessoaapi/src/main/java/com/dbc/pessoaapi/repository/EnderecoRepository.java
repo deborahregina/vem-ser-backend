@@ -26,14 +26,6 @@ public class EnderecoRepository {
     @Autowired
     private final PessoaService pessoaService;
 
-//    @PostConstruct
-//    public void inicializar() {
-//        List<PessoaDTO> listapessoas = pessoaService.list();
-//        listaEnderecos.add(new EnderecoEntity(COUNTER.incrementAndGet(),listapessoas.get(0).getIdPessoa(),TipoEndereco.RESIDENCIAL,"Av. Independência",200,"Ap 405","90460200","Porto Alegre","RS","Brasil"));
-//        listaEnderecos.add(new EnderecoEntity(COUNTER.incrementAndGet(),listapessoas.get(0).getIdPessoa(),TipoEndereco.RESIDENCIAL,"Av. Brasil",210,"Ap 45","20460200","Porto Alegre","RS","Brasil"));
-//        listaEnderecos.add(new EnderecoEntity(COUNTER.incrementAndGet(),listapessoas.get(1).getIdPessoa(),TipoEndereco.RESIDENCIAL,"Av. Central",200,"Ap 405","90460200","Canoas","RS","Brasil"));
-//        listaEnderecos.add(new EnderecoEntity(COUNTER.incrementAndGet(),listapessoas.get(2).getIdPessoa(),TipoEndereco.RESIDENCIAL,"Av. Venâncio Aires",210,"Ap 45","20460200","Esteio","RS","Brasil"));
-//    }
 
 
     public EnderecoEntity create(EnderecoEntity endereco) {

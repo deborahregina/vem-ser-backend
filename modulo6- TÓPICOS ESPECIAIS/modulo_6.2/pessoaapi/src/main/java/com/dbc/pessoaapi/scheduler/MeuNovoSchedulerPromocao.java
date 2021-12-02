@@ -1,3 +1,4 @@
+/*
 package com.dbc.pessoaapi.scheduler;
 
 import com.dbc.pessoaapi.dto.PessoaDTO;
@@ -35,4 +36,4 @@ public class MeuNovoSchedulerPromocao {
             emailService.enviarEmailPromocao(pessoaDTO);
         }
     }
-}
+}*/

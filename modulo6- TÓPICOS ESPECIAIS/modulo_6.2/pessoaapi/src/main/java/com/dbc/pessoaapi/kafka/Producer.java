@@ -1,7 +1,6 @@
-package com.dbc.chatkafka.kafka;
+package com.dbc.pessoaapi.kafka;
 
-import com.dbc.chatkafka.dto.ListaChatDTO;
-import com.dbc.chatkafka.dto.MensagemDTO;
+import com.dbc.pessoaapi.dto.EmailDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
+
 
 @Component
 @RequiredArgsConstructor
@@ -28,7 +26,7 @@ public class Producer {
     private final ObjectMapper objectMapper;
 
     @Value(value = "${kafka.topic.string}")
-    private String topicoGeral;
+    private String topico;
 
 
     private void send(String mensagem, String topico) {
@@ -53,19 +51,8 @@ public class Producer {
     }
 
 
-    public void sendMessageDTO(ListaChatDTO listaChatDTO) throws JsonProcessingException {
-        if (listaChatDTO.getNomeUsuario().isEmpty()) {
-            String payload = objectMapper.writeValueAsString(listaChatDTO.getMensagemDTO());
-            send(payload, topicoGeral);
-        }
-
-
-
-        for(String usuario : listaChatDTO.getNomeUsuario()) {
-            String topico = "chat-"+usuario;
-            String payload = objectMapper.writeValueAsString(listaChatDTO.getMensagemDTO());
-            send(payload, topico);
-        }
-
+    public void sendMessageDTO(EmailDTO emailDTO) throws JsonProcessingException {
+        String payload = objectMapper.writeValueAsString(emailDTO);
+        send(payload, topico);
     }
 }

@@ -26,9 +26,9 @@
 //    private final PessoaRepository pessoaRepository;
 //
 //
-//    @Scheduled(cron = "0 0 8,20 * * *", zone = "GMT-3")
-//    public void meuPrimeiroScheduler() throws InterruptedException, MessagingException, TemplateException, IOException {
-////
+
+   // public void meuPrimeiroScheduler() throws InterruptedException, MessagingException, TemplateException, IOException {
+
 //        List<PessoaEntity> pessoaEntities = pessoaRepository.findPessoasComEndNull();
 //
 //        for(PessoaEntity pessoa : pessoaEntities) {

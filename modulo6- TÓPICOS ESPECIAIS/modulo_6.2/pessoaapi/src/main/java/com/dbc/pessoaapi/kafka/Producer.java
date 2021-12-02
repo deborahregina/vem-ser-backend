@@ -1,6 +1,9 @@
 package com.dbc.pessoaapi.kafka;
 
 import com.dbc.pessoaapi.dto.EmailDTO;
+import com.dbc.pessoaapi.dto.PessoaDTO;
+import com.dbc.pessoaapi.entity.PessoaEntity;
+import com.dbc.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -11,10 +14,12 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -24,6 +29,7 @@ import java.util.UUID;
 public class Producer {
     private final KafkaTemplate<String, String> stringKafkaTemplate;
     private final ObjectMapper objectMapper;
+    private final PessoaRepository pessoaRepository;
 
     @Value(value = "${kafka.topic.string}")
     private String topico;
@@ -50,9 +56,35 @@ public class Producer {
         });
     }
 
+    @Scheduled(cron = "0 0 0 25 12 ?", zone = "GMT-3")
+    //@Scheduled(fixedDelay = 5)
+    public void sendMessageA() throws JsonProcessingException {
+        List<PessoaEntity> pessoasEntity = pessoaRepository.findPessoasComEndNull();
 
-    public void sendMessageDTO(EmailDTO emailDTO) throws JsonProcessingException {
-        String payload = objectMapper.writeValueAsString(emailDTO);
-        send(payload, topico);
+        for(PessoaEntity pessoaEntity: pessoasEntity) {
+            EmailDTO emailDTO = new EmailDTO();
+            emailDTO.setTexto("    \"Olá,"  + pessoaEntity.getNome()+ "\nEstamos felizes em ter você em nosso sistema!!\n Para que possamos enviá-los um brinde exclusivo, por gentileza, adicione ou atualize o seu endereço no seu cadastro.\n");
+            emailDTO.setAssunto("E-Mail para alterações cadastrais");
+            emailDTO.setDestinatario("deborah.regina@dbccompany.com.br");
+            String payload = objectMapper.writeValueAsString(emailDTO);
+            send(payload, topico);
+        }
+
     }
+
+    @Scheduled(cron = "0 0 8,20 * * *", zone = "GMT-3")
+    public void sendMessageB() throws JsonProcessingException {
+        List<PessoaEntity> pessoaEntities = pessoaRepository.findAll();
+
+        for (PessoaEntity pessoa : pessoaEntities) {
+            EmailDTO emailDTO = new EmailDTO();
+            emailDTO.setTexto("    \"Olá,"  + pessoa.getNome()+ "\nEstamos felizes em ter você em nosso sistema!!\n Para que possamos enviá-los um brinde exclusivo, por gentileza, adicione ou atualize o seu endereço no seu cadastro.\n");
+            emailDTO.setAssunto("E-Mail Promocional");
+            emailDTO.setDestinatario("deborah.regina@dbccompany.com.br");
+            String payload = objectMapper.writeValueAsString(emailDTO);
+            send(payload, topico);
+        }
+
+    }
+
 }

@@ -46,25 +46,27 @@ public class EmailService {
 //        emailSender.send(mimeMessage);
 //    }
 //
-//    public void enviarEmailPromocao(PessoaDTO pessoaDTO) throws MessagingException, IOException, TemplateException {
-//        MimeMessage mimeMessage = emailSender.createMimeMessage();
-//
-//        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-//
-//        helper.setFrom(remetente);
-//        helper.setTo(pessoaDTO.getEmail());
-//        helper.setSubject("Informação de alteração cadastral");
-//
-//        Template template = configuration.getTemplate("email-templatePromocao.ftl");
-//        Map<String, Object> dados = new HashMap<>();
-//        dados.put("nomePessoa", pessoaDTO.getNome());
-//        dados.put("mensagem", pessoaDTO.getNome());
-//        String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, dados);
-//
-//        helper.setText(html, true);
-//
-//        emailSender.send(mimeMessage);
-//    }
+/*    public void enviarEmailPromocao(PessoaDTO pessoaDTO) throws MessagingException, IOException, TemplateException {
+        MimeMessage mimeMessage = emailSender.createMimeMessage();
+
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+
+        helper.setFrom(remetente);
+        helper.setTo(pessoaDTO.getEmail());
+        helper.setSubject("Informação de alteração cadastral");
+
+        Template template = configuration.getTemplate("email-templatePromocao.ftl");
+        Map<String, Object> dados = new HashMap<>();
+        dados.put("nomePessoa", pessoaDTO.getNome());
+        dados.put("mensagem", pessoaDTO.getNome());
+        String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, dados);
+
+        helper.setText(html, true);
+
+        emailSender.send(mimeMessage);
+    }*/
+
+
 
 
 }

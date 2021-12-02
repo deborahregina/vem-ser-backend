@@ -58,12 +58,13 @@ public class Producer {
 
     @Scheduled(cron = "0 0 0 25 12 ?", zone = "GMT-3")
     //@Scheduled(fixedDelay = 5)
-    public void sendMessageA() throws JsonProcessingException {
+    public void sendMessageEnderecos() throws JsonProcessingException {
         List<PessoaEntity> pessoasEntity = pessoaRepository.findPessoasComEndNull();
 
         for(PessoaEntity pessoaEntity: pessoasEntity) {
             EmailDTO emailDTO = new EmailDTO();
-            emailDTO.setTexto("    \"Olá,"  + pessoaEntity.getNome()+ "\nEstamos felizes em ter você em nosso sistema!!\n Para que possamos enviá-los um brinde exclusivo, por gentileza, adicione ou atualize o seu endereço no seu cadastro.\n");
+            emailDTO.setTexto("    \"Olá,"  + pessoaEntity.getNome()+ "\nEstamos felizes em ter você em nosso sistema!!\n "+
+                    "Para que possamos enviá-los um brinde exclusivo, por gentileza, adicione ou atualize o seu endereço no seu cadastro.\n");
             emailDTO.setAssunto("E-Mail para alterações cadastrais");
             emailDTO.setDestinatario("deborah.regina@dbccompany.com.br");
             String payload = objectMapper.writeValueAsString(emailDTO);
@@ -73,12 +74,13 @@ public class Producer {
     }
 
     @Scheduled(cron = "0 0 8,20 * * *", zone = "GMT-3")
-    public void sendMessageB() throws JsonProcessingException {
+    public void sendMessagePromocoes() throws JsonProcessingException {
         List<PessoaEntity> pessoaEntities = pessoaRepository.findAll();
 
         for (PessoaEntity pessoa : pessoaEntities) {
             EmailDTO emailDTO = new EmailDTO();
-            emailDTO.setTexto("    \"Olá,"  + pessoa.getNome()+ "\nEstamos felizes em ter você em nosso sistema!!\n Para que possamos enviá-los um brinde exclusivo, por gentileza, adicione ou atualize o seu endereço no seu cadastro.\n");
+            emailDTO.setTexto("Olá"+ pessoa.getNome()+ "\nSelecionamos algumas das nossas super promoções de natal\n na nossa plataorma" +
+                    "\nNa compra de 1CDs do Chitãozinho e Xoxoró, ganhe 1 do Milionário e José Rico\n Aproveite... \n Magazine OldsSchool");
             emailDTO.setAssunto("E-Mail Promocional");
             emailDTO.setDestinatario("deborah.regina@dbccompany.com.br");
             String payload = objectMapper.writeValueAsString(emailDTO);
